@@ -1,0 +1,572 @@
+/*样式重置*/
+html,body,ul {margin: 0;padding: 0;}
+ul li { list-style-type: none}
+a {text-decoration: none;}
+/*最外大盒子样式*/
+#invoice-box {
+    font-size: 12px;
+    background: #00b7ee;
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+}
+
+/*左边样式*/
+#invoice-left {
+    width: 15%;
+    height: 100%;
+    float: left;
+    background: #EDEEF3;
+}
+
+.my-invoice {
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    font-size: 14px;
+    padding: 0 20px;
+    background: #DADFE6;
+}
+
+.invoice-item li {
+    height: 35px;
+    line-height: 35px;
+    padding: 0 20px;
+    cursor: pointer;
+    position: relative;
+}
+
+.white{background: #fff;}
+
+.invoice-item li span {
+    width: 12px;
+    height: 12px;
+    color: #fff;
+    line-height: 12px;
+    text-align: center;
+    display: inline-block;
+    background: #F8453D;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -6px;
+    margin-right: 20px;
+}
+
+/*右边样式*/
+
+#invoice-right {
+    float: left;
+    width: 85%;
+    height: 100%;
+    padding: 0 10px;
+    background: #fff;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/*切换部分*/
+.invoice-tab{
+    height: 30px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.invoice-tab li{
+    float: left;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #DADFE6;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.invoice-tab li.active{
+    background: #2D9BF9;
+    color: #fff;
+}
+
+/*右边功能按扭区*/
+.invoice-btn {
+    height: auto;
+    padding: 10px 0;
+    border-top: 1px solid #DADFE6;
+}
+
+.invoice-btn li {
+    float: left;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    margin-left: 10px;
+    text-align: center;
+    border: 1px solid #4d6178;
+    /*background: #fff;*/
+    cursor: pointer;
+    position: relative;
+}
+
+.invoice-btn .first{
+	padding:0;
+	line-height:0;
+}
+
+#search1{
+	line-height:25px;
+	margin-right:5px;
+}
+
+/*右边功能区左边部分*/
+.invoice-btn .btn-left {
+    float: left;
+}
+
+.invoice-btn .btn-left li:first-child {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.invoice-btn .btn-left input {
+    /*width: 100%;*/
+    height: 100%;
+    border:0px;
+    outline:none;
+    margin: 0;
+    /*padding-top: 2px;*/
+   	padding:0;
+    background:none;
+}
+.invoice-btn .btn-left input:focus {
+    /*border: 1px solid #eb7350;*/
+    /*background: #fff;*/
+    /*outline: none;*/
+}
+/*设置高级查询下的小三角*/
+.invoice-btn .search-criteria:before {
+    content: '';
+    position: absolute;
+    left: 22%;
+    top: -10px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 11px solid #F7F7F7;
+}
+
+/*设置iconfont图标样式*/
+#invoice-right .invoice-btn .icon-zhankai {
+    font-size: 6px;
+    margin-left: 4px;
+}
+
+/*.invoice-btn .btn-left .icon-zhankai {*/
+    /*display: none;*/
+/*}*/
+
+/*高级查询点击样式*/
+.btn-left .triangle {
+    padding: 0;
+}
+
+.triangle .triangle-box {
+    padding: 0 10px;
+}
+
+#triangle-item>li:hover{
+	background:#269ABC;
+}
+
+
+.triangle-item {
+    width: 94px;
+    background: #013768;
+    line-height: 20px;
+    display: none;
+    position: absolute;
+    top: 24px;
+    right: -1px;
+    z-index: 1;
+    border: 1px solid #00CCFF;
+    border-top: none;
+}
+/*下拉列表的样式*/
+.invoice-btn .btn-left .triangle-item li {
+    margin: 0;
+    padding: 0 10px;
+    width: 100%;
+    height: 20px;
+    border: none;
+    text-align: left;
+    line-height: 20px;
+    color: #000;
+    z-index: 1;
+    background: #fff;
+}
+
+.triangle-item li:hover {
+    background: #269ABC;
+}
+
+.btn-left .left-active {
+    color: #00CCFF;
+    border: 1px solid #00CCFF;
+    /*border-bottom: none;*/
+}
+
+/*功能按扭区右边部分*/
+.invoice-btn .btn-right {
+    float: right;
+}
+
+/*更多操作*/
+.btn-right .actions {
+    width: 100px;
+    padding: 0;
+}
+
+.actions .more-actions {
+    padding: 0 10px;
+}
+
+.btn-right .click-actions {
+    color: #00CCFF;
+    border: 1px solid #00CCFF;
+    border-bottom: none;
+}
+
+/*下拉列表的样式*/
+.btn-right .actions-item {
+    width: 130px;
+    line-height: 20px;
+    display: none;
+    float: right;
+    position: absolute;
+    top: 24px;
+    right: -1px;
+    z-index: 1;
+    border: 1px solid #00CCFF;
+}
+/*下拉列表的样式*/
+.actions-item li {
+    margin: 0;
+    padding: 0 10px;
+    width: 100%;
+    height: 20px;
+    border: none;
+    color: #000;
+    z-index: 99;
+    line-height: 20px;
+    text-align: left;
+    background: #fff;
+}
+
+.actions-item li:hover {
+    background: #269ABC;
+}
+
+/*清除浮动代码*/
+.clear-float:after {
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+
+.clear-float {
+    zoom: 1
+}
+
+/*高级查询标题*/
+.tit {
+    padding: 2px 10px;
+    border-top: 1px solid #DADFE6;
+}
+.tit .tit-item {
+    float: left;
+}
+.tit .tit-item li{
+    float: left;
+    padding: 4px 0;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.tit .tit-item .icon-guanbi {
+    font-size: 4px;
+    margin-left: 10px;
+    color: #4c5a5f;
+}
+.tit span {
+    float: right;
+    padding: 4px;
+    color: #fff;
+    cursor: pointer;
+    background: #00c1de;
+}
+.del-li {
+    color: #ed1c24;
+    border-bottom: 2px solid #ed1c24;
+}
+
+/*表单区域*/
+.search-criteria {
+    width: 100%;
+    height: 110px;
+    font-size: 12px;
+    background: #F7F7F7;
+    position: relative;
+    float: left;
+    margin-top: 10px;
+    display: none;
+}
+
+.search-criteria label {
+    display: inline-block;
+    margin: 10px 10px 0;
+}
+
+.search-criteria .money-int input {
+    width: 70px;
+}
+
+.search-criteria .criteria-btn {
+    margin: 10px auto;
+    text-align: center;
+    position: absolute;
+    left: 45%;
+}
+
+.search-criteria .criteria-btn input {
+    padding: 2px 10px;
+}
+
+.btn-right li.right-active {
+    background: #2D9BF9;
+    color: #fff;
+    border: none;
+}
+
+/*表格部分*/
+#past {
+    margin: 0 10px;
+    color: #00CCFF;
+}
+#back {
+    color: #ed1c24;
+}
+/*表单按钮*/
+.criteria-btn input.click-btn {
+    background: #2D9BF9;
+    color: #fff;
+    border: none;
+}
+/*遮罩层样式*/
+#shade{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 998;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.3; /*兼容IE8及以下版本浏览器*/
+    filter: alpha(opacity=30);
+    display: none;
+}
+.modal {
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: none;
+    background: #fff;
+}
+
+.modal .modal-tit {
+    width: 100%;
+    height: 30px;
+    padding: 0 10px;
+    line-height: 30px;
+    font-size: 14px;
+    border-bottom: 1px solid #DADFE6;
+    background:#cecece;
+}
+
+.modal .modal-tit i {
+    float: right;
+    cursor: pointer;
+    font-size: 4px;
+}
+
+/*批量审核*/
+#more-audit {
+    width: 500px;
+    height: 350px;
+}
+
+#more-audit .modal-content {
+    padding: 10px 30px 20px;
+    position: relative;
+}
+
+#more-audit .modal-content label {
+    margin: 5px 0;
+    display: inline-block;
+}
+
+#more-audit .modal-content textarea {
+    margin-left: 20px;
+}
+
+#more-audit .modal-content .modal-btn {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#more-audit .modal-content button {
+    margin-right: 10px;
+    background: #fff;
+    border: 1px solid #9fb7c2;
+}
+
+/*审核历史*/
+#audit-history {
+    width: 900px;
+    height: 200px;
+}
+#audit-history .content {
+    height: 170px;
+    margin: 0 50px;
+}
+.float-div {
+    float: left;
+    margin: 24px 0;
+    text-align: center;
+}
+.big-circle {
+    width: 70px;
+    height: 70px;
+    color: #fff;
+    margin: 10px 0;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 70px;
+    background: #00CCFF;
+    border: 1px dashed #9fb7c2;
+}
+.small-div {
+    margin: 46px 0;
+    text-align: center;
+}
+.small-div .small-circle {
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    margin: 10px 0;
+    cursor: pointer;
+    background: #00CCFF;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 30px;
+    border: 1px dashed #9fb7c2;
+}
+.line {
+    width: 40px;
+    height: 2px;
+    margin: 86px 0;
+    border: 1px solid #00CCFF;
+    background:#00CCFF;
+}
+/*列设置*/
+#line-set {
+    width: 600px;
+    height: 400px;
+    display:block;
+    position:relative;
+}
+
+/*表格弹窗*/
+#table-dig {
+    width: 600px;
+    height: 252px;
+}
+
+#line-detail {
+    margin: 20px;
+}
+
+#line-detail input {
+    margin-left: 10px !important;
+}
+
+#line-detail .line-btn {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#line-detail button {
+    margin-right: 10px;
+    background: #fff;
+    border: 1px solid #9fb7c2;
+}
+
+
+.datagrid-htable{
+	height:40px;
+}
+
+#actions-item{
+	width:100px;
+	margin-top:1px;
+}
+.datagrid-filter-row{
+	display:none;
+}
+.search-criteria input{
+	font-size:12px;
+}
+
+#line-set .modal-content{
+	position:absolute;
+	left:20px;
+	right:20px;
+	top:50px;
+	bottom: 20px;
+	padding:10px;
+}
+#line-set .btnarea{
+	position:absolute;
+	background:green;
+	width:200px;
+	right:0;
+	bottom:0;
+}
+#line-set .btnarea input{
+	border-radius:5px;
+	background:#fff;
+	border:none;
+}
+
+
+#line-set .modal-content{
+	border:1px solid #cecece;
+}
+#line-set .modal-content li{
+	list-style: none;
+	margin-top:10px;
+	box-sizing: border-box;
+}
+ 
+
+#line-set .modal-content li input[type=button].focus1{
+	background:#199ED8;
+	outline: none;
+	border:1px solid #cecece;
+}

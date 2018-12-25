@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的单据</title>
+		<link rel="stylesheet" type="text/css" href="./easyui/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css">
+	
+		<link rel="stylesheet" type="text/css" href="./css/easyui.css">
+		<link rel="stylesheet" type="text/css" href="./css/invoice.css">
+		<link rel="stylesheet" type="text/css" href="./css/iconfont.css">
+		<script type="text/javascript" src="./easyui/jquery.min.js"></script>
+		<script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="./easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="./js/pagination.js"></script>
+		<script src="js/datagrid-filter.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="./js/invoice1.js"></script>
+	</head>
+	<body>
+		<div id="invoice-box">
+			<!--单据左边部分，单据列表start-->
+			<div id="invoice-left">
+				<div class="my-invoice">我的单据</div>
+				<ul class="invoice-item" id="invoice-item">
+					<li class="white" url="data/grid_data_1.json">用款计划申请<span>0</span></li>
+					<li url="data/grid_data_2.json">直接支付申请<span>0</span></li>
+					<li url="data/grid_data_3.json">授权支付申请<span>0</span></li>
+				</ul>
+			</div>
+			<!--单据右边部分，单据展示start-->
+			<div id="invoice-right" >
+				<!--右边tab-top-start-->
+				<ul class="invoice-tab" id="invoice-item">
+					<li id="todo">待办</li>
+					<li id="finished">已办</li>
+					<li id="all" class="active">全部</li>
+				</ul>
+				<!--右边功能按钮区start-->
+				<div class="invoice-btn clear-float">
+					<ul class="btn-left">
+						<li class="first">
+							<input type="search">
+							<i id="search1" class="iconfont icon-sousuo" style="color: #9fb7c2;"></i>
+						</li>
+						<li class="triangle">
+							<div class="triangle-box">
+								<span>高级查询</span>
+								<i class="iconfont icon-zhankai"></i>
+							</div>
+							<ul class="triangle-item" id="triangle-item"></ul>
+						</li>
+						<li class="reload">刷新</li>
+					</ul>
+					<ul class="btn-right">
+						<li class="right-active" onclick="more_audit()">批量审核</li>
+						<li onclick="audit_history()">审核历史</li>
+						<li class="actions">
+							<div class="more-actions">
+								<span>更多操作</span>
+								<i class="iconfont icon-zhankai"></i>
+							</div>
+							<ul class="actions-item" id="actions-item">
+								<li>批量修改审核意见</li>
+								<li>表格打印</li>
+								<li>表格当前页打印</li>
+								<li>表格导出</li>
+								<li>表格当前页导出</li>
+								<li>表格选择行导出</li>
+							</ul>
+						</li>
+						<li onclick="line_set()">列设置</li>
+					</ul>
+					<!--高级查询表单start-->
+					<form class="search-criteria" action="" method="post">
+						<label>支付方式：<input type="text"></label>
+						<label>部门经济分类：<input type="text"></label>
+						<label>预算科目：<input type="text"></label>
+						<label class="money-int">申请金额：<input type="text">&nbsp;&nbsp;<input type="text"></label><br>
+						<label>功能分类：<input type="text"></label>
+						<label>政府经济分类：<input type="text"></label>
+						<label>支付说明：<input type="text"></label><br>
+						<label class="criteria-btn">
+                        <input class="search-btn" type="button" value="查询">
+                        <input class="reset-btn" type="reset" value="重置">
+                        <input class="save-btn" type="button" value="保存">
+                    </label>
+					</form>
+				</div>
+				<!--高级查询标题-->
+				<div class="tit clear-float">
+					<ul class="tit-item">
+						<li class="del-li">支付方式：授权支付<i class="iconfont icon-guanbi"></i></li>
+						<li>预算项目：基础支出<i class="iconfont icon-guanbi"></i></li>
+					</ul>
+					<span>清空</span>
+				</div>
+				<!--表格切换部分start-->
+				<div id="invoice-todo">
+					<table id="tb" class="easyui-datagrid" style="width:99%;height:auto" data-options="fitColumns:true,scrollbarSize:0,pagination:true,url:'./data/grid_data_1.json',method:'get',rownumbers:true">
+						<thead>
+							<tr>
+								<th data-options="field:'check',checkbox:true,align:'center'"></th>
+								<th data-options="field:'document_month',width:100,align:'center'">月份</th>
+								<th data-options="field:'document_money',width:100,align:'center'">支付方式</th>
+								<th data-options="field:'document_explain',width:100,align:'center'">申请说明</th>
+								<th data-options="field:'document_unit',width:100,align:'center'">预算单位</th>
+								<th data-options="field:'document_course',width:100,align:'center'">预算科目</th>
+								<th data-options="field:'document_economic',width:100,align:'center'">政府经济科目</th>
+								<th data-options="field:'document_opinion',width:100,align:'center'">审核意见</th>
+								<th data-options="field:'document_operate',width:100,align:'center',formatter:format">操作</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!--遮罩层的实现-->
+		<div id="shade"></div>
+		<!--批量审核-->
+		<div id="more-audit" class="modal">
+			<!--遮罩层top标题-->
+			<div class="modal-tit">
+				<span>批量审核</span>
+				<i class="iconfont icon-guanbi" onclick="cancel_audit()"></i>
+			</div>
+			<!--遮罩层content内容-->
+			<div class="modal-content">
+				<label>审核意见：</label>
+				<textarea name="content" cols="56" rows="14"></textarea>
+				<div class="modal-btn"><button>确定</button><button>取消</button></div>
+			</div>
+		</div>
+		<!--审核历史-->
+		<div id="audit-history" class="modal">
+			<!--遮罩层top标题-->
+			<div class="modal-tit">
+				<span>审核历史</span>
+				<i class="iconfont icon-guanbi" onclick="cancel_history()"></i>
+			</div>
+			<!--遮罩层content内容-->
+			<div class="content clear-float">
+				<div class="float-div">
+					<span>我是时间</span>
+					<div class="big-circle">
+						张来顺
+						<!--<i class="iconfont icon-shouye"></i>-->
+					</div>
+					<span>录入</span>
+				</div>
+				<div class="float-div line"></div>
+				<div class="float-div small-div">
+					<span>通过</span>
+					<div class="small-circle">
+						<i class="iconfont icon-xiayitiao1"></i>
+					</div>
+				</div>
+				<div class="float-div line"></div>
+				<div class="float-div">
+					<span>我是时间</span>
+					<div class="big-circle">
+						李青山
+						<!--<i class="iconfont icon-shouye"></i>-->
+					</div>
+					<span>送审</span>
+				</div>
+				<div class="float-div line"></div>
+				<div class="float-div small-div">
+					<span>通过</span>
+					<div class="small-circle">
+						<i class="iconfont icon-xiayitiao1"></i>
+					</div>
+				</div>
+				<div class="float-div line"></div>
+				<div class="float-div">
+					<span>我是时间</span>
+					<div class="big-circle">
+						赵无极
+						<!--<i class="iconfont icon-shouye"></i>-->
+					</div>
+					<span>单位审核</span>
+				</div>
+				<div class="float-div line"></div>
+				<div class="float-div small-div">
+					<span>通过</span>
+					<div class="small-circle">
+						<i class="iconfont icon-xiayitiao1"></i>
+					</div>
+				</div>
+				<div class="float-div line"></div>
+				<div class="float-div">
+					<span>我是时间</span>
+					<div class="big-circle">
+						<i class="iconfont icon-shouye"></i>
+					</div>
+					<span>部门审核</span>
+				</div>
+				<div class="float-div line"></div>
+				<div class="float-div small-div">
+					<span>通过</span>
+					<div class="small-circle">
+						<i class="iconfont icon-xiayitiao1"></i>
+					</div>
+				</div>
+				<div class="float-div line"></div>
+				<div class="float-div">
+					<span>我是时间</span>
+					<div class="big-circle">
+						<i class="iconfont icon-shouye"></i>
+					</div>
+					<span>国库处初审</span>
+				</div>
+			</div>
+		</div>
+		<!--列设置-->
+		<div id="line-set" class="modal">
+			<!--遮罩层top标题-->
+			<div class="modal-tit">
+				<span>列设置</span>
+				<i class="iconfont icon-guanbi" onclick="cancel_line()"></i>
+			</div>
+			<!--遮罩层content内容-->
+			<div class="modal-content">
+				<li>
+					<input type="checkbox" />
+					<input type="text" value="操作" />
+					<input type="button" value="显示要素编码"/>
+					<input type="button" value="锁定"/>
+					<i class="iconfont icon-baocun"></i>
+					<i class="iconfont icon-bianji "></i>
+				</li>
+				
+				<li>
+					<input type="checkbox" />
+					<input type="text" value="操作" />
+					<input type="button" value="显示要素编码"/>
+					<input type="button" value="锁定"/>
+					<i class="iconfont icon-baocun"></i>
+					<i class="iconfont icon-bianji "></i>
+				</li>
+				
+				<li>
+					<input type="checkbox" />
+					<input type="text" value="操作" />
+					<input type="button" value="显示要素编码"/>
+					<input type="button" value="锁定"/>
+					<i class="iconfont icon-baocun"></i>
+					<i class="iconfont icon-bianji "></i>
+				</li>
+				
+				<li>
+					<input type="checkbox" />
+					<input type="text" value="操作" />
+					<input type="button" value="显示要素编码"/>
+					<input type="button" value="锁定"/>
+					<i class="iconfont icon-baocun"></i>
+					<i class="iconfont icon-bianji "></i>
+				</li>
+				
+				<li>
+					<input type="checkbox" />
+					<input type="text" value="操作" />
+					<input type="button" value="显示要素编码"/>
+					<input type="button" value="锁定"/>
+					<i class="iconfont icon-baocun"></i>
+					<i class="iconfont icon-bianji "></i>
+				</li>
+				
+				<li>
+					<input type="checkbox" />
+					<input type="text" value="操作" />
+					<input type="button" value="显示要素编码"/>
+					<input type="button" value="锁定"/>
+					<i class="iconfont icon-baocun"></i>
+					<i class="iconfont icon-bianji "></i>
+				</li>
+			</div>
+			<div class="btnarea">
+				<input type="button" id="confirm1" value="确定" />
+				<input type="button" id="cancel1" value="取消"/>
+			</div>
+		</div>
+		<!--弹框，显示表格所选行的信息-->
+		<div id="table-dig" class="modal">
+			<!--遮罩层top标题-->
+			<div class="modal-tit">
+				<span>用款计划申请</span>
+				<i class="iconfont icon-guanbi" onclick="detail_line()"></i>
+			</div>
+			<!--遮罩层content内容-->
+			<form id="line-detail">
+				<table style="width:100%;" class="kv-table" cellspacing="0">
+					<tr>
+						<td class="kv-label"><label for="document_code">编号</label></td>
+						<td class="kv-content"><input class="easyui-textbox" type="text" name="document_code" data-options="editable:false" /></td>
+						<td class="kv-label"><label for="document_month">月份</label></td>
+						<td class="kv-content"><input class="easyui-textbox" type="text" name="document_month" data-options="editable:false" /></td>
+					</tr>
+					<tr>
+						<td class="kv-label"><label for="document_money">申请金额</label></td>
+						<td class="kv-content"><input class="easyui-textbox" type="text" name="document_money" data-options="editable:false" /></td>
+						<td class="kv-label"><label for="document_explain">申请说明</label></td>
+						<td class="kv-content"><input class="easyui-textbox" type="text" name="document_explain" data-options="editable:false" /></td>
+					</tr>
+					<tr>
+						<td class="kv-label"><label for="document_unit">预算单位</label></td>
+						<td class="kv-content"><input class="easyui-textbox" type="text" name="document_unit" data-options="editable:false" /></td>
+						<td class="kv-label"><label for="document_course">预算科目</label></td>
+						<td class="kv-content"><input class="easyui-textbox" type="text" name="document_course" data-options="editable:false" /></td>
+					</tr>
+					<tr>
+						<td class="kv-label"><label for="document_economic">政府经济科目</label></td>
+						<td class="kv-content"><input class="easyui-textbox" type="text" name="document_economic" data-options="editable:false" /></td>
+						<td class="kv-label"><label for="document_opinion">审核意见</label></td>
+						<td class="kv-content"><input class="easyui-textbox" type="text" name="document_opinion" data-options="editable:false" /></td>
+					</tr>
+				</table>
+				<div class="line-btn"><button>确定</button><button>取消</button></div>
+			</form>
+		</div>
+	</body>
+</html>
